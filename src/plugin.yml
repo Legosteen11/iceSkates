@@ -1,0 +1,8 @@
+name: IceSkates
+version: 0.1.0-SNAPSHOT
+author: Wouter Doeland
+main: io.github.legosteen11.iceSkates.Main
+commands:
+  about:
+    description: About the plugin
+    usage: /about

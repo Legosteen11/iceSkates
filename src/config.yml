@@ -1,0 +1,4 @@
+minimumDistanceDifference: 0.25 #0.25 will only trigger when sprinting.
+speed: 3 #potion effectiveness
+duration: 60 #duration in ticks (20 ticks = appr. 1 second)
+timePassedBeforeCheck: 20 #the time that has to be passed for players with a speed buff before checking if they're walking on ice. In ticks (20 ticks = appr. 1 second)
