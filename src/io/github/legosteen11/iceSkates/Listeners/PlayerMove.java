@@ -31,7 +31,7 @@ public class PlayerMove implements Listener {
             }
             if (abs(e.getFrom().getX() - e.getTo().getX()) > minimumDifference || abs(e.getFrom().getZ() - e.getTo().getZ()) > minimumDifference) {
                 Location location = e.getTo().clone();
-                location.setY(e.getTo().getY() - 2);
+                location.setY(e.getTo().getY() - 1);
                 Material blockType = location.getBlock().getType();
                 if (blockType == Material.ICE || blockType == Material.PACKED_ICE || blockType == Material.FROSTED_ICE) {
                     e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, speed));
