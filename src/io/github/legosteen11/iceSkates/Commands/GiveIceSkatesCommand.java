@@ -16,8 +16,8 @@ import java.util.List;
  * COPYRIGHT WOUTER DOELAND/LEGOSTEEN11 (legosteen11.github.io)
  */
 public class GiveIceSkatesCommand extends Command {
-    public GiveIceSkatesCommand(String command, String permission, String usage, boolean console) {
-        super(command, permission, usage, console);
+    public GiveIceSkatesCommand(String command, String permission, String usage, boolean console, int args) {
+        super(command, permission, usage, console, args);
     }
 
     @Override

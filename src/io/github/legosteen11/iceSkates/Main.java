@@ -28,7 +28,7 @@ public class Main extends JavaPlugin {
         this.saveDefaultConfig();
 
         CommandHandler commandHandler = new CommandHandler();
-        commandHandler.register(new GiveIceSkatesCommand("giveiceskates","iceskates.giveiceskates","/giveiceskates <player>", true));
+        commandHandler.register(new GiveIceSkatesCommand("giveiceskates","iceskates.giveiceskates","/giveiceskates <player>", true, 1));
 
         registerEvents(this, new PlayerMove());
     }
