@@ -6,3 +6,6 @@ commands:
   about:
     description: About the plugin
     usage: /about
+  giveiceskates:
+    description: Gives ice skates to a player
+    usage: /giveiceskates <player>

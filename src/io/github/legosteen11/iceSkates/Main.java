@@ -1,6 +1,8 @@
 package io.github.legosteen11.iceSkates;
 
+import io.github.legosteen11.iceSkates.Commands.GiveIceSkatesCommand;
 import io.github.legosteen11.iceSkates.Listeners.PlayerMove;
+import me.mrten.api.commands.CommandHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -24,6 +26,9 @@ public class Main extends JavaPlugin {
         log.info("Enabled");
 
         this.saveDefaultConfig();
+
+        CommandHandler commandHandler = new CommandHandler();
+        commandHandler.register(new GiveIceSkatesCommand("giveiceskates","iceskates.giveiceskates","/giveiceskates <player>", true));
 
         registerEvents(this, new PlayerMove());
     }
