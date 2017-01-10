@@ -3,9 +3,11 @@ package io.github.legosteen11.iceSkates.Listeners;
 import io.github.legosteen11.iceSkates.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -23,18 +25,29 @@ public class PlayerMove implements Listener {
 
     @EventHandler
     public void onPlayerMoveEvent(PlayerMoveEvent e) {
-        if(e.getPlayer().hasPermission("iceskates.skate")) {
-            if (e.getPlayer().getPotionEffect(PotionEffectType.SPEED) != null) {
-                if (e.getPlayer().getPotionEffect(PotionEffectType.SPEED).getDuration() > duration - timePassedBeforeCheck) {
-                    return;
-                }
-            }
-            if (abs(e.getFrom().getX() - e.getTo().getX()) > minimumDifference || abs(e.getFrom().getZ() - e.getTo().getZ()) > minimumDifference) {
-                Location location = e.getTo().clone();
-                location.setY(e.getTo().getY() - 1);
-                Material blockType = location.getBlock().getType();
-                if (blockType == Material.ICE || blockType == Material.PACKED_ICE || blockType == Material.FROSTED_ICE) {
-                    e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, speed));
+        Player player = e.getPlayer();
+        if(player.hasPermission("iceskates.skate")) {
+            if(Main.ENABLE_SKATE_ITEMS) {
+                ItemStack boots = player.getInventory().getBoots();
+                if(boots != null) {
+                    if (boots.getItemMeta().getLore().contains(Main.ICE_SKATES_ITEM_IDENTIFIER)) {
+                        if (Main.PLAYERSPECIFIC_SKATE_ITEMS && !boots.getItemMeta().getLore().contains(player.getUniqueId().toString())) {
+                            return;
+                        }
+                        if (player.getPotionEffect(PotionEffectType.SPEED) != null) {
+                            if (player.getPotionEffect(PotionEffectType.SPEED).getDuration() > duration - timePassedBeforeCheck) {
+                                return;
+                            }
+                        }
+                        if (abs(e.getFrom().getX() - e.getTo().getX()) > minimumDifference || abs(e.getFrom().getZ() - e.getTo().getZ()) > minimumDifference) {
+                            Location location = e.getTo().clone();
+                            location.setY(e.getTo().getY() - 1);
+                            Material blockType = location.getBlock().getType();
+                            if (blockType == Material.ICE || blockType == Material.PACKED_ICE || blockType == Material.FROSTED_ICE) {
+                                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, speed));
+                            }
+                        }
+                    }
                 }
             }
         }

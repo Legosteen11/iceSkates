@@ -17,6 +17,9 @@ import java.util.logging.Logger;
 public class Main extends JavaPlugin {
     private static Plugin plugin;
     private Logger log;
+    public static boolean ENABLE_SKATE_ITEMS;
+    public static boolean PLAYERSPECIFIC_SKATE_ITEMS;
+    public static final String ICE_SKATES_ITEM_IDENTIFIER = "ICE_SKATES";
 
     @Override
     public void onEnable(){
@@ -26,6 +29,9 @@ public class Main extends JavaPlugin {
         log.info("Enabled");
 
         this.saveDefaultConfig();
+        
+        ENABLE_SKATE_ITEMS = getConfig().getBoolean("enableskateitems");
+        PLAYERSPECIFIC_SKATE_ITEMS = getConfig().getBoolean("playerspecificskateitems");
 
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.register(new GiveIceSkatesCommand("giveiceskates","iceskates.giveiceskates","/giveiceskates <player>", true, 1));
@@ -36,7 +42,6 @@ public class Main extends JavaPlugin {
     @Override
     public void onDisable(){
         plugin = null;
-
         log.info("Disabled");
     }
 

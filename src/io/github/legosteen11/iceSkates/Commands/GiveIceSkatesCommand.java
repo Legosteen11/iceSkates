@@ -33,10 +33,20 @@ public class GiveIceSkatesCommand extends Command {
                      enchantmentArray) {
                     String[] splitEnchantmentString = enchantment.split(",");
                     if(splitEnchantmentString.length == 2) {
+                        boolean failed = false;
                         String enchantmentString = splitEnchantmentString[0];
-                        int enchantmentLevel = Integer.parseInt(splitEnchantmentString[1]);
+                        int enchantmentLevel = 0;
+                        try {
+                            enchantmentLevel = Integer.parseInt(splitEnchantmentString[1]);
+                        } catch (NumberFormatException e) {
+                            failed = true;
+                        }                        
+                        
+                        Enchantment enchantmentObject = Enchantment.getByName(enchantmentString);
 
-                        iceSkates.addEnchantment(Enchantment.getByName(enchantmentString), enchantmentLevel);
+                        if(enchantmentObject != null && !failed) {
+                            iceSkates.addEnchantment(enchantmentObject, enchantmentLevel);
+                        }
                     }
                 }
                 
@@ -44,9 +54,12 @@ public class GiveIceSkatesCommand extends Command {
                 itemMeta.setDisplayName(Main.getPlugin().getConfig().getString("defaultname").replaceAll("\\Q{PLAYER}\\E", player.getName()));
                 List<String> defaultLore = Main.getPlugin().getConfig().getStringList("defaultlore");
                 defaultLore.add("ICE_SKATES");
+                defaultLore.add(player.getUniqueId().toString());
                 itemMeta.setLore(defaultLore);
+                iceSkates.setItemMeta(itemMeta);
                 
                 player.getInventory().addItem(iceSkates);
+                return true;
             }
         }
         return false;
