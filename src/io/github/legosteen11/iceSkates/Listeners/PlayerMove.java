@@ -30,21 +30,23 @@ public class PlayerMove implements Listener {
             if(Main.ENABLE_SKATE_ITEMS) {
                 ItemStack boots = player.getInventory().getBoots();
                 if(boots != null) {
-                    if (boots.getItemMeta().getLore().contains(Main.ICE_SKATES_ITEM_IDENTIFIER)) {
-                        if (Main.PLAYERSPECIFIC_SKATE_ITEMS && !boots.getItemMeta().getLore().contains(player.getUniqueId().toString())) {
-                            return;
-                        }
-                        if (player.getPotionEffect(PotionEffectType.SPEED) != null) {
-                            if (player.getPotionEffect(PotionEffectType.SPEED).getDuration() > duration - timePassedBeforeCheck) {
+                    if(boots.getItemMeta().getLore() != null) {
+                        if (boots.getItemMeta().getLore().contains(Main.ICE_SKATES_ITEM_IDENTIFIER)) {
+                            if (Main.PLAYERSPECIFIC_SKATE_ITEMS && !boots.getItemMeta().getLore().contains(player.getUniqueId().toString())) {
                                 return;
                             }
-                        }
-                        if (abs(e.getFrom().getX() - e.getTo().getX()) > minimumDifference || abs(e.getFrom().getZ() - e.getTo().getZ()) > minimumDifference) {
-                            Location location = e.getTo().clone();
-                            location.setY(e.getTo().getY() - 1);
-                            Material blockType = location.getBlock().getType();
-                            if (blockType == Material.ICE || blockType == Material.PACKED_ICE || blockType == Material.FROSTED_ICE) {
-                                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, speed));
+                            if (player.getPotionEffect(PotionEffectType.SPEED) != null) {
+                                if (player.getPotionEffect(PotionEffectType.SPEED).getDuration() > duration - timePassedBeforeCheck) {
+                                    return;
+                                }
+                            }
+                            if (abs(e.getFrom().getX() - e.getTo().getX()) > minimumDifference || abs(e.getFrom().getZ() - e.getTo().getZ()) > minimumDifference) {
+                                Location location = e.getTo().clone();
+                                location.setY(e.getTo().getY() - 1);
+                                Material blockType = location.getBlock().getType();
+                                if (blockType == Material.ICE || blockType == Material.PACKED_ICE || blockType == Material.FROSTED_ICE) {
+                                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, speed));
+                                }
                             }
                         }
                     }
